@@ -1,0 +1,49 @@
+0) Install opencv
+		https://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html
+		
+1) Modify PATH variable of the system to include 
+	OPENCV_DIR/bin
+	
+2) Visual Studio configuration:
+	C/C++ -> General -> Additional Include Directories
+	Add the directories with libraries: OPENCV_DIR/build/include
+	
+	Linker -> General -> Additional Library Directories
+	Add the directories with libraries: OPENCV_DIR/build/x64/vcXX/lib  (XX version of Visual: 15, 17...)
+	
+	Linker -> Input -> Additional Dependencies
+	If Release mode write:
+		opencv_core2413.lib , opencv_imgproc2413.lib, opencv_highgui2413.lib
+	If Debug mode write:
+		opencv_core2413d.lib , opencv_imgproc2413d.lib, opencv_highgui2413d.lib
+		
+	Configuration Properties -> VC++ Directories -> Include Directories
+	Add OPENCV_DIR/build/include where OPENCV_DIR is the folder of unpacked OpenCV
+	
+3) Visual Studio parameters (2 parameters, in image and out image)
+	PX -> Properties -> Configuration Properties -> Debugging -> Command Arguments
+	Add in and out image (example: Mars_Rover.jpg MarsConverted.png)
+	(In image must be inside PX folder)
+	
+4) According to Additional Dependencies (step 2) run Visual Studio in Debug mode or Release mode,
+and execute (ctrl+F5)
+
+5) Result image should appear alonside In image (inside PX folder)
+
+6) In order to choose operations and its values, go to func.cu Line 512 "Operations". You can only chose one operation at a time. 
+Set the desired operation to "true" and set the rest to "false"
+A bit down, you can choose the values for each operation. Change them to desired values.
+(Example: I want to increase the brightness of the image by 100:
+ bool b_brightness = true; the rest = false; int brightnessAmount = 100;)
+ 
+Possible operations:
+1. Convolution filters
+2. Brightness
+3. Legacy Contrast
+4. Contrast
+5. Saturation
+6. Tint
+7. Color inversion
+8. Flip Horizontal
+9. Flip Vertical
+10.  Salt & pepper noise
